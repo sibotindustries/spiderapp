@@ -1,0 +1,408 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  .text-2xs {
+    font-size: 0.625rem;
+    line-height: 0.875rem;
+  }
+  
+  /* Media queries para responsividade */
+  /* Para telas grandes (desktop) */
+  @media (min-width: 1024px) {
+    body {
+      font-size: 16px;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .crime-report {
+      max-width: 800px;
+    }
+  }
+
+  /* Para telas de tablets (como iPads) */
+  @media (max-width: 1023px) and (min-width: 768px) {
+    body {
+      font-size: 15px;
+    }
+    .container {
+      max-width: 90%;
+      margin: 0 auto;
+    }
+    .crime-report {
+      max-width: 90%;
+    }
+    .web-decoration {
+      width: 30px;
+      height: 30px;
+    }
+  }
+
+  /* Para telas de celulares muito pequenos (320px ou menos) */
+  @media (max-width: 320px) {
+    body {
+      font-size: 14px;
+    }
+    .container {
+      max-width: 98%;
+      padding-left: 0.5rem;
+      padding-right: 0.5rem;
+    }
+    
+    /* Maior espaçamento entre elementos para evitar touch failures */
+    button, 
+    a, 
+    input, 
+    select, 
+    .interactive-element {
+      margin-bottom: 1rem;
+      min-height: 2.75rem;
+    }
+    
+    .card, .form-control {
+      margin-bottom: 1.25rem;
+    }
+    
+    /* Aumento dos espaços de toque */
+    .btn, .touch-target {
+      min-width: 44px;
+      min-height: 44px;
+    }
+  }
+  
+  /* Para celulares padrão (321px a 480px) */
+  @media (min-width: 321px) and (max-width: 480px) {
+    body {
+      font-size: 14px;
+    }
+    .container {
+      max-width: 95%;
+      padding: 0 10px;
+      margin: 0 auto;
+    }
+    .crime-report {
+      max-width: 100%;
+    }
+    .web-decoration {
+      width: 25px;
+      height: 25px;
+    }
+    
+    /* Ajustes para componentes específicos em telas pequenas */
+    .crime-marker {
+      transform: translate(-50%, -50%) scale(0.8);
+    }
+    .crime-marker:hover {
+      transform: translate(-50%, -50%) scale(1);
+    }
+    
+    /* Reduz o background pattern */
+    body {
+      background-size: 30px 30px;
+      background-position: 0 0, 15px 15px;
+    }
+    
+    /* Ajustes para a navegação em dispositivos móveis */
+    .navbar-mobile {
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    
+    .navbar-mobile .nav-links {
+      flex-direction: column;
+      width: 100%;
+    }
+    
+    /* Layout flexível para formulários */
+    .form-grid {
+      display: block !important;
+    }
+    
+    .form-grid .form-item {
+      margin-bottom: 0.75rem;
+    }
+    
+    /* Ajusta espaçamentos gerais */
+    .p-4 {
+      padding: 0.75rem !important;
+    }
+    .m-4 {
+      margin: 0.75rem !important;
+    }
+    
+    /* Ajustes para o mapa */
+    .map-container {
+      height: 300px !important;
+    }
+    
+    /* Ajustes para cards de crime */
+    .crime-card {
+      flex-direction: column !important;
+    }
+    
+    .crime-card-actions {
+      flex-direction: column !important;
+      align-items: stretch !important;
+      gap: 0.5rem !important;
+    }
+    
+    /* Ajustes para botões em mobile */
+    .btn-group {
+      flex-direction: column !important;
+      width: 100% !important;
+    }
+    
+    .btn-full-mobile {
+      width: 100% !important;
+      margin-bottom: 0.5rem !important;
+    }
+  }
+  
+  /* Dispositivos pequenos (celulares) */
+  @media screen and (max-width: 480px) {
+    body {
+      font-size: 14px;
+    }
+    .menu {
+      flex-direction: column;
+    }
+    .container {
+      padding: 10px;
+      margin: 0;
+    }
+    .header, .footer {
+      text-align: center;
+    }
+  }
+
+  /* Celulares médios */
+  @media screen and (min-width: 481px) and (max-width: 767px) {
+    body {
+      font-size: 15px;
+    }
+    .container {
+      padding: 15px;
+      max-width: 100%;
+    }
+  }
+  
+  /* Tablets */
+  @media screen and (min-width: 768px) and (max-width: 1023px) {
+    .container {
+      padding: 20px;
+      max-width: 90%;
+      margin: 0 auto;
+    }
+  }
+  
+  /* Laptops e desktops */
+  @media screen and (min-width: 1024px) {
+    .container {
+      padding: 25px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+  }
+  
+  /* Telas grandes */
+  @media screen and (min-width: 1440px) {
+    body {
+      font-size: 16px;
+    }
+    .container {
+      max-width: 1400px;
+    }
+  }
+  
+  /* Estilos baseados na orientação do dispositivo */
+  @media screen and (orientation: portrait) {
+    .layout-container {
+      flex-direction: column;
+    }
+  }
+  
+  @media screen and (orientation: landscape) {
+    .layout-container {
+      flex-direction: row;
+    }
+  }
+  
+  /* Classes auxiliares de responsividade */
+  .hide-on-mobile {
+    @media (max-width: 767px) {
+      display: none !important;
+    }
+  }
+  
+  .hide-on-desktop {
+    @media (min-width: 1024px) {
+      display: none !important;
+    }
+  }
+  
+  .flex-column-mobile {
+    @media (max-width: 767px) {
+      flex-direction: column !important;
+    }
+  }
+  
+  .full-width-mobile {
+    @media (max-width: 767px) {
+      width: 100% !important;
+    }
+  }
+  :root {
+    --background: 240 10% 7%;
+    --foreground: 0 0% 95%;
+    
+    --card: 240 10% 10%;
+    --card-foreground: 0 0% 95%;
+    
+    --popover: 240 10% 7%;
+    --popover-foreground: 0 0% 95%;
+    
+    --primary: 356 74% 52%;
+    --primary-foreground: 0 0% 100%;
+    
+    --secondary: 240 54% 47%;
+    --secondary-foreground: 0 0% 100%;
+    
+    --muted: 240 10% 15%;
+    --muted-foreground: 240 5% 65%;
+    
+    --accent: 240 10% 14%;
+    --accent-foreground: 0 0% 95%;
+    
+    --destructive: 0 85% 60%;
+    --destructive-foreground: 0 0% 98%;
+    
+    --border: 240 10% 20%;
+    --input: 240 10% 20%;
+    --ring: 356 74% 52%;
+    
+    --radius: 0.5rem;
+    
+    --chart-1: 356 74% 52%;
+    --chart-2: 240 54% 47%;
+    --chart-3: 49 100% 50%;
+    --chart-4: 193 100% 50%;
+    --chart-5: 120 100% 25%;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply font-oxanium antialiased bg-background text-foreground;
+    background-image: 
+      radial-gradient(rgba(38, 38, 201, 0.03) 3px, transparent 4px),
+      radial-gradient(rgba(230, 48, 34, 0.03) 3px, transparent 4px);
+    background-size: 50px 50px;
+    background-position: 0 0, 25px 25px;
+    overflow-x: hidden;
+  }
+  
+  /* Impedir o zoom no touch em inputs */
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  input[type="number"],
+  input[type="date"],
+  input[type="tel"],
+  textarea,
+  select {
+    font-size: 16px !important; /* Evita zoom automático no iOS */
+    max-height: 999999px; /* Evita ajustes de fonte no Android */
+  }
+
+  .font-rajdhani {
+    font-family: 'Rajdhani', sans-serif;
+  }
+
+  .font-oxanium {
+    font-family: 'Oxanium', sans-serif;
+  }
+
+  .spider-web-bg {
+    position: relative;
+  }
+  
+  .spider-web-bg::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M50 0 L50 100 M0 50 L100 50 M16 16 L84 84 M84 16 L16 84' stroke='rgba(255,255,255,0.03)' stroke-width='1'/%3E%3C/svg%3E");
+    background-size: 100px 100px;
+    z-index: -1;
+  }
+
+  .electric-glow {
+    box-shadow: 0 0 5px #00b4ff, 0 0 10px rgba(0, 180, 255, 0.3);
+  }
+
+  .web-decoration {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20 0 L20 40 M0 20 L40 20 M10 10 L30 30 M30 10 L10 30' stroke='rgba(230,48,34,0.15)' stroke-width='1'/%3E%3C/svg%3E");
+    z-index: -1;
+  }
+
+  .crime-marker {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .crime-marker:hover {
+    transform: translate(-50%, -50%) scale(1.2);
+  }
+
+  .tab-active {
+    background-color: rgba(230, 48, 34, 0.2);
+    border-bottom: 2px solid #e63022;
+  }
+
+  .crime-report {
+    @apply relative overflow-hidden hover:border-primary/40 transition-all;
+  }
+
+  .crime-report::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 40px;
+    height: 40px;
+    background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20 0 L20 40 M0 20 L40 20 M10 10 L30 30 M30 10 L10 30' stroke='rgba(230,48,34,0.15)' stroke-width='1'/%3E%3C/svg%3E");
+    z-index: 0;
+  }
+  
+  /* Spiderman's patrol route animation */
+  @keyframes dash {
+    to {
+      stroke-dashoffset: 30;
+    }
+  }
+  
+  .animate-dash {
+    animation: dash 1.5s linear infinite;
+  }
+  
+  /* City map styling */
+  .city-grid {
+    background-color: rgba(0, 0, 0, 0.2);
+    background-image: 
+      linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    background-size: 50px 50px;
+  }
+}

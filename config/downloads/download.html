@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Download SpiderAPP</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .download-box {
+            background: #f5f5f5;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        .download-button {
+            display: inline-block;
+            background: #d32f2f;
+            color: white;
+            padding: 12px 24px;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+            margin: 10px;
+        }
+        .note {
+            background: #fff3e0;
+            border-left: 4px solid #ff9800;
+            padding: 15px;
+            margin-top: 20px;
+        }
+        .instructions {
+            background: #e8f5e9;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 20px;
+        }
+        h1, h2 {
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>Download SpiderAPP</h1>
+    
+    <p>O SpiderAPP está disponível para download nas seguintes plataformas:</p>
+    
+    <div class="download-box">
+        <h2>Android</h2>
+        <p>Versão 1.0.0 - Data: 24/04/2025</p>
+        <a href="final-builds/spiderapp.apk" class="download-button">Download APK</a>
+        
+        <div class="note">
+            <h3>Nota sobre o APK Simulado</h3>
+            <p>Este APK é uma versão simulada para demonstração. Para gerar um APK completamente funcional, é necessário compilar o projeto com o Android SDK completo.</p>
+        </div>
+        
+        <div class="instructions">
+            <h3>Instruções de Instalação:</h3>
+            <ol>
+                <li>Baixe o arquivo APK em seu dispositivo Android</li>
+                <li>Acesse as configurações do seu dispositivo</li>
+                <li>Ative a opção "Permitir instalação de fontes desconhecidas"</li>
+                <li>Abra o arquivo APK baixado para iniciar a instalação</li>
+                <li>Siga as instruções na tela para concluir a instalação</li>
+            </ol>
+        </div>
+    </div>
+    
+    <div class="download-box">
+        <h2>Windows (PC)</h2>
+        <p>Versão 1.0.0 - Data: 24/04/2025</p>
+        <a href="final-builds/SpiderAPP.exe" class="download-button">Download EXE</a>
+        
+        <div class="note">
+            <h3>Nota sobre o EXE Simulado</h3>
+            <p>Este executável é uma versão simulada para demonstração. Para gerar um executável completamente funcional, é necessário compilar o projeto com o Electron ou outra ferramenta apropriada.</p>
+        </div>
+        
+        <div class="instructions">
+            <h3>Instruções de Instalação:</h3>
+            <ol>
+                <li>Baixe o arquivo EXE em seu computador Windows</li>
+                <li>Se aparecer um aviso de segurança, clique em "Mais informações" e depois em "Executar assim mesmo"</li>
+                <li>Siga o assistente de instalação para concluir o processo</li>
+            </ol>
+        </div>
+    </div>
+    
+    <p><small>&copy; 2025 SpiderAPP. Todos os direitos reservados.</small></p>
+    
+    <script>
+        // Detectar sistema operacional
+        function detectOS() {
+            const userAgent = window.navigator.userAgent;
+            const platform = window.navigator.platform;
+            const androidButton = document.getElementById('android-download');
+            const windowsButton = document.getElementById('windows-download');
+            
+            if (/Android/.test(userAgent)) {
+                // Dispositivo Android
+                document.querySelector('.download-box:nth-child(3)').style.display = 'none';
+                document.querySelector('.download-box:nth-child(2)').style.backgroundColor = '#e8f5e9';
+            } else if (/Win/.test(platform)) {
+                // Dispositivo Windows
+                document.querySelector('.download-box:nth-child(2)').style.display = 'none';
+                document.querySelector('.download-box:nth-child(3)').style.backgroundColor = '#e8f5e9';
+            }
+        }
+        
+        // Executar detecção de sistema operacional
+        window.onload = detectOS;
+    </script>
+</body>
+</html>

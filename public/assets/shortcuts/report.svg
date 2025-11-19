@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" width="96" height="96">
+  <circle cx="48" cy="48" r="46" fill="#12121a" stroke="#e63022" stroke-width="4"/>
+  
+  <!-- Ícone de relatório -->
+  <g transform="translate(48, 48) scale(0.04)">
+    <!-- Prancheta -->
+    <rect x="-400" y="-500" width="800" height="1000" rx="40" ry="40" fill="#4040bf"/>
+    <rect x="-360" y="-460" width="720" height="920" rx="20" ry="20" fill="#1a1a25"/>
+    
+    <!-- Linhas do papel -->
+    <g stroke="#e63022" stroke-width="20">
+      <line x1="-300" y1="-300" x2="300" y2="-300"/>
+      <line x1="-300" y1="-100" x2="300" y2="-100"/>
+      <line x1="-300" y1="100" x2="300" y2="100"/>
+      <line x1="-300" y1="300" x2="300" y2="300"/>
+    </g>
+    
+    <!-- Símbolo + para novo relatório -->
+    <g stroke="#ffffff" stroke-width="60" stroke-linecap="round">
+      <line x1="0" y1="-680" x2="0" y2="-560"/>
+      <line x1="-60" y1="-620" x2="60" y2="-620"/>
+    </g>
+  </g>
+</svg>
