@@ -1,46 +1,40 @@
-name: Build and Sign Android APK
+name: Build Cordova Android Debug APK
 
 on:
   push:
     branches:
       - main
-    tags:
-      - 'v*'  # para disparar em tags iniciadas com 'v'
-  workflow_dispatch:  # permite iniciar manualmente o workflow
+  workflow_dispatch:
 
 jobs:
   build:
-    name: Build Android APK
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
-      - name: Set up Node.js
+      - name: Install Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '22'
+          node-version: '18'
 
-      - name: Install dependencies and build frontend
+      - name: Install Cordova
+        run: npm install -g cordova
+
+      - name: Install dependencies
+        run: npm install
+        working-directory: ./frontend  # ajuste para sua pasta do Cordova
+
+      - name: Add Android platform
+        run: cordova platform add android
         working-directory: ./frontend
-        run: |
-          npm install
-          npm run build
 
-      - name: Set up Capacitor and add android platform
+      - name: Build Android Debug APK
+        run: cordova build android --debug
         working-directory: ./frontend
-        run: |
-         npm install @capacitor/core @capacitor/cli @capacitor/android
-         npx cap init SpiderApp com.spiderapp.app
-         npx cap add android
-         npx cap sync android
 
-      - name: Build APK with Gradle
-        working-directory: android
-        run: ./gradlew assembleRelease
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
         with:
-          name: app-release-apk
-          path: android/app/build/outputs/apk/release/app-release.apk
+          name: android-debug-apk
+          path: ./frontend/platforms/android/app/build/outputs/apk/debug/app-debug.apk
