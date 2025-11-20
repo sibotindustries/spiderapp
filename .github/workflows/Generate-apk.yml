@@ -28,11 +28,12 @@ jobs:
           npm install
           npm run build
 
-      - name: Set up Capacitor
+      - name: Set up Capacitor and add android platform
         working-directory: ./frontend
         run: |
-          npm install @capacitor/core @capacitor/cli @capacitor/android
-          npx cap sync android
+         npm install @capacitor/core @capacitor/cli @capacitor/android
+         npx cap add android
+         npx cap sync android
 
       - name: Build APK with Gradle
         working-directory: android
