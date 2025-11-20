@@ -26,7 +26,9 @@ jobs:
         working-directory: ./frontend  # ajuste para sua pasta do Cordova
 
       - name: Add Android platform
-        run: cordova platform add android
+        run: 
+         cordova create spiderapp com.spiderapp.app SpiderAPP
+         cordova platform add android
         working-directory: ./frontend
 
       - name: Build Android Debug APK
