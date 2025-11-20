@@ -3,17 +3,17 @@ name: Build and Sign Android APK
 on:
   push:
     branches:
-      - main  # ou sua branch principal
-  tags:
-    - 'v*'     # para builds em tags
-
+      - main
+    tags:
+      - 'v*'  # Para disparar em tags iniciadas com 'v'
+      
 jobs:
   build:
     name: Build Android APK
     runs-on: ubuntu-latest
 
     steps:
-      - name: Check out repo
+      - name: Checkout repository
         uses: actions/checkout@v3
 
       - name: Set up Node.js
@@ -21,8 +21,8 @@ jobs:
         with:
           node-version: '22'
 
-      - name: Install dependencies
-        working-directory: ./frontend # ajuste para o seu caminho
+      - name: Install dependencies and build frontend
+        working-directory: ./frontend
         run: |
           npm install
           npm run build
@@ -31,17 +31,14 @@ jobs:
         working-directory: ./frontend
         run: |
           npm install @capacitor/core @capacitor/cli @capacitor/android
-          npx cap sync
+          npx cap sync android
 
-      - name: Build Android plugin
-        working-directory: ./frontend
-        run: |
-          npx cap open android
-          # O comando acima abre o Android Studio, mas na CI você pode usar o Gradle para build
-          ./gradlew assembleRelease
+      - name: Build APK with Gradle
+        working-directory: android
+        run: ./gradlew assembleRelease
 
-      - name: Upload APK
+      - name: Upload APK artifact
         uses: actions/upload-artifact@v3
         with:
-          name: Signed APK
+          name: app-release-apk
           path: android/app/build/outputs/apk/release/app-release.apk
