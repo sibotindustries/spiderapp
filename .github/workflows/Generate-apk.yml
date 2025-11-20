@@ -32,6 +32,7 @@ jobs:
         working-directory: ./frontend
         run: |
          npm install @capacitor/core @capacitor/cli @capacitor/android
+         npx cap init SpiderApp com.spiderman.spiderapp
          npx cap add android
          npx cap sync android
 
