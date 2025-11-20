@@ -3,6 +3,7 @@ import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
 import { createHealthMonitor } from "./health-monitor";
 import { keepAliveSystem } from "./keep-alive";
+import { streamText } from "ai";
 
 const app = express();
 app.use(express.json());
@@ -32,6 +33,51 @@ app.get("/api/restart/:key", (req, res) => {
     res.status(403).json({ status: "error", message: "Chave de reinício inválida" });
   }
 });
+
+// Nova rota para atender à funcionalidade de IA
+app.post("/api/chat", async (req, res) => {
+  try {
+    // Obter dados que são monitorados e usados como referência no contexto
+    const spiderManArrivalData = await getSpiderManData();
+
+    // Formatar contexto com os dados coletados
+    const prompt = `
+      Dados disponíveis sobre o Spider-Man:
+      - Status de chegada: ${spiderManArrivalData.arrivalStatus}
+      - Localização atual: ${spiderManArrivalData.currentLocation || "Desconhecida"}
+      - Tempo estimado de chegada: ${spiderManArrivalData.estimatedArrival || "Sem previsão"}
+
+      Pergunta: ${req.body.question}
+    `;
+
+    // Chamar o streamText para obter uma resposta baseada no contexto
+    const result = await streamText({
+      model: "perplexity/sonar",
+      prompt,
+    });
+
+    res.json({
+      success: true,
+      data: result,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Erro ao processar a entrada de IA",
+      error: error.message,
+    });
+  }
+});
+
+// Função simulada para obter dados do Spider-Man
+async function getSpiderManData() {
+  // Exemplo de dados simulados; substituir pela lógica real
+  return {
+    arrivalStatus: "Chegou",
+    currentLocation: "Nova York",
+    estimatedArrival: "2025-11-21T15:00:00Z",
+  };
+}
 
 app.use((req, res, next) => {
   const start = Date.now();
@@ -130,7 +176,7 @@ const startServer = async () => {
       host: "0.0.0.0",
       reusePort: true,
     }, () => {
-      log(`Servidor ativo na porta ${port}`, "server");
+      log(`Servidor ativo na porta ${port}", "server");
       isServerStarting = false;
       
       // Iniciar o sistema de monitoramento de saúde (fonte de energia infinita)
