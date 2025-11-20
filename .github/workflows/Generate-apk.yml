@@ -5,8 +5,9 @@ on:
     branches:
       - main
     tags:
-      - 'v*'  # Para disparar em tags iniciadas com 'v'
-      
+      - 'v*'  # para disparar em tags iniciadas com 'v'
+  workflow_dispatch:  # permite iniciar manualmente o workflow
+
 jobs:
   build:
     name: Build Android APK
