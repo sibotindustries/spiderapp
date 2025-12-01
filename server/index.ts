@@ -101,7 +101,13 @@ const startServer = async () => {
       await new Promise(resolve => setTimeout(resolve, 1000));
     }
 
-    const server = await registerRoutes(app);
+    const server = registerRoutes(app);
+    
+    // Verificar se o servidor foi criado corretamente
+    if (!server) {
+      throw new Error("Falha ao criar servidor HTTP");
+    }
+    
     currentServer = server;
 
     app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
