@@ -17,11 +17,11 @@ app.get("/api/health", (req, res) => {
 // Rota especial para reinício programado (protegida por chave simples)
 app.get("/api/restart/:key", (req, res) => {
   const restartKey = "spiderman-super-loop"; // Chave simples para proteção básica
-  
+
   if (req.params.key === restartKey) {
     log("Solicitação de reinício remoto recebida com chave válida", "restart-api");
     res.json({ status: "restarting", message: "Servidor será reiniciado em 5 segundos" });
-    
+
     // Aguardar 5 segundos e então reiniciar
     setTimeout(() => {
       log("Executando reinício programado remoto", "restart-api");
@@ -60,7 +60,7 @@ app.post("/api/chat", async (req, res) => {
       success: true,
       data: result,
     });
-  } catch (error) {
+  } catch (error: any) {
     res.status(500).json({
       success: false,
       message: "Erro ao processar a entrada de IA",
@@ -125,7 +125,7 @@ const startServer = async () => {
 
   try {
     log("Iniciando servidor com sistema de fonte de energia infinita...", "server");
-    
+
     // Se já existe um servidor rodando, fechar primeiro
     if (currentServer) {
       log("Fechando servidor anterior antes de reiniciar...", "server");
@@ -144,7 +144,7 @@ const startServer = async () => {
       // Aguardar um pouco para garantir que as portas foram liberadas
       await new Promise(resolve => setTimeout(resolve, 1000));
     }
-    
+
     const server = await registerRoutes(app);
     currentServer = server;
 
@@ -153,7 +153,7 @@ const startServer = async () => {
       const message = err.message || "Internal Server Error";
 
       res.status(status).json({ message });
-      
+
       // Não propagar o erro para não derrubar o servidor
       log(`Erro capturado: ${err.message || "Erro desconhecido"}`, "error-handler");
     });
@@ -176,12 +176,12 @@ const startServer = async () => {
       host: "0.0.0.0",
       reusePort: true,
     }, () => {
-      log(`Servidor ativo na porta ${port}", "server");
+      log(`Servidor ativo na porta ${port}`, "server");
       isServerStarting = false;
-      
+
       // Iniciar o sistema de monitoramento de saúde (fonte de energia infinita)
       const healthMonitor = createHealthMonitor(server);
-      
+
       // Configurar encerramento programado para reinício automático em loop
       setTimeout(() => {
         log("Reinício programado do servidor para manutenção da energia infinita...", "server");
@@ -193,13 +193,13 @@ const startServer = async () => {
         });
       }, 12 * 60 * 60 * 1000); // Reiniciar a cada 12 horas para garantir frescor
     });
-    
+
     // Tratar erros ao escutar na porta
     server.on('error', (err: any) => {
       log(`Erro no servidor: ${err.message}`, "server");
       isServerStarting = false;
       currentServer = null;
-      
+
       if (err.code === 'EADDRINUSE') {
         log("Porta já em uso, aguardando 10 segundos antes de tentar novamente...", "server");
         setTimeout(startServer, 10000);
@@ -207,13 +207,13 @@ const startServer = async () => {
         setTimeout(startServer, 5000);
       }
     });
-    
+
     return server;
-  } catch (error) {
+  } catch (error: any) {
     log(`Erro ao iniciar o servidor: ${error instanceof Error ? error.message : "Erro desconhecido"}`, "server");
     isServerStarting = false;
     currentServer = null;
-    
+
     // Tentar reiniciar o servidor após um atraso
     log("Tentando reiniciar o servidor automaticamente em 10 segundos...", "server");
     setTimeout(startServer, 10000);
